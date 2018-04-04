@@ -1,0 +1,81 @@
+import React from 'react';
+import './Statefull.css';
+
+export class Statefull extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            data:{
+                value: this.props.value,
+                count: this.props.value
+             }
+            }
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+        console.log(this.props.value);
+      }
+    
+      handleChange(event) {
+        this.setState({value: event.target.value});
+      }
+    
+      handleSubmit(event) {
+        alert('A name was submitted: ' + this.state.value);
+        event.preventDefault();
+      }
+     myFunction() {
+        //this.setState(return );
+        this.setState(prevState => {
+           return {count: parseInt(this.input.value)}
+        });
+    }
+        onclick(type){
+            console.log(type);
+            this.setState(prevState => {
+                if(prevState.count == '') {
+                    prevState.count = 0;
+                }
+               return {count: type === 'add' ? prevState.count + 1: prevState.count - 1}
+            });
+      }
+      myOutput()
+         {   
+        alert("Counter Value is :"+ this.state.count);
+    }    
+   render() { 
+      return ( 
+         <div>
+             <form>
+                <table>
+                <div className="table">
+                <tr>
+                <td><h1>My Counter App</h1> </td>
+                </tr>
+                </div>
+                <div className="table">
+                <tr>
+                    <td><label>Input :</label>
+                    <input type="number" ref={(input) => this.input = input}/>   
+                    <input type="button" value="Set" onClick={this.myFunction.bind(this)}/>
+                    </td>
+                    </tr>
+
+                    <tr>
+                    <td>
+                    <label>Counter value :</label>
+                    <input type='button' onClick={this.onclick.bind(this, 'add')} value='+'/>
+                    <input type="number" value={this.state.count}/>
+                     <input type='button' onClick={this.onclick.bind(this, 'sub')} value='-'/>
+                     </td>
+                    </tr>
+                    </div>
+                    <div className="table">
+                    <button type="button" onClick={this.myOutput.bind(this)}>Done </button>
+                    </div>
+                </table>
+                </form>
+         </div>
+      );
+   }
+}
+
